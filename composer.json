@@ -1,0 +1,10 @@
+{
+    "name": "hexlet/code",
+    "type": "project",
+    "require": {
+        "docopt/docopt": "^1.0"
+    },
+    "bin": [
+        "bin/gendiff"
+    ]
+}
