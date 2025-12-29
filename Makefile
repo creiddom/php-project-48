@@ -8,7 +8,7 @@ lint-fix:
 	php vendor/bin/php-cs-fixer fix
 
 test:
-	vendor/bin/phpunit
+	php vendor/bin/phpunit
 
 test-coverage:
 	php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
