@@ -1,6 +1,8 @@
 {
 	"name": "hexlet/code",
 	"type": "project",
+	"description": "Generate diff between two configuration files",
+  	"license": "proprietary",
 	"require": {
 		"php": ">=8.2",
 		"docopt/docopt": "^1.0",
