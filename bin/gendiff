@@ -4,6 +4,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Docopt\Handler;
+use function Differ\Differ\genDiff;
 
 $doc = <<<DOC
 Generate diff
@@ -19,12 +20,12 @@ Options:
   --format <fmt>                Report format [default: stylish]
 DOC;
 
-
 $handler = new Handler();
-
 $args = $handler->handle($doc, array_slice($argv, 1));
 
-if (!empty($args['--version'])) {
-    echo "0.0.0\n";
-    exit(0);
-}
+$path1 = $args['<firstFile>'];
+$path2 = $args['<secondFile>'];
+
+$format = $args['--format'];
+
+echo genDiff($path1, $path2) . PHP_EOL;

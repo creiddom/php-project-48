@@ -1,10 +1,24 @@
 {
-    "name": "hexlet/code",
-    "type": "project",
-    "require": {
-        "docopt/docopt": "^1.0"
-    },
-    "bin": [
-        "bin/gendiff"
-    ]
+	"name": "hexlet/code",
+	"type": "project",
+	"require": {
+		"php": ">=8.2",
+		"docopt/docopt": "^1.0",
+		"funct/funct": "^1.6"
+	},
+	"require-dev": {
+		"friendsofphp/php-cs-fixer": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Differ\\": "src/"
+		},
+		"files": [
+			"src/Parser.php",
+			"src/Differ.php"
+  		]
+	},
+	"bin": [
+		"bin/gendiff"
+	]
 }
