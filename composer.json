@@ -14,13 +14,16 @@
 		"friendsofphp/php-cs-fixer": "*"
 	},
 	"autoload": {
-		"psr-4": {
-			"Differ\\": "src/"
-		},
-		"files": [
-			"src/Parsers.php",
-			"src/Differ.php"
-  		]
+	"psr-4": {
+		"Differ\\": "src/"
+	},
+	"files": [
+		"src/Parsers.php",
+		"src/DiffTree.php",
+		"src/Formatters.php",
+		"src/Formatters/Stylish.php",
+		"src/Differ.php"
+	]
 	},
 	"bin": [
 		"bin/gendiff"

@@ -15,10 +15,10 @@ class DifferTest extends TestCase
     {
         $fixtureDir = __DIR__ . '/fixtures';
 
-        $expected = file_get_contents($fixtureDir . '/expected.txt');
+        $expected = file_get_contents($fixtureDir . '/expected.stylish.txt');
         $this->assertNotFalse($expected);
 
-        $actual = genDiff($file1, $file2);
+        $actual = genDiff($file1, $file2, 'stylish');
 
         $normalize = fn(string $s): string => rtrim(str_replace(["\r\n", "\r"], "\n", $s), "\n");
 
