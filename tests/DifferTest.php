@@ -56,6 +56,18 @@ class DifferTest extends TestCase
                 'plain',
                 $fixtureDir . '/expected.plain.txt',
             ],
+            'json_json' => [
+                $fixtureDir . '/file1.json',
+                $fixtureDir . '/file2.json',
+                'json',
+                $fixtureDir . '/expected.json.txt',
+            ],
+            'yaml_json' => [
+                $fixtureDir . '/file1.yml',
+                $fixtureDir . '/file2.yml',
+                'json',
+                $fixtureDir . '/expected.json.txt',
+            ],
         ];
     }
 }

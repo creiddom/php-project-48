@@ -22,6 +22,7 @@ CLI-утилита и PHP-библиотека для вычисления ра�
   * YAML (`.yml`, `.yaml`)
 * Вывод различий в формате `stylish`
 * Вывод различий в формате `plain`
+* Вывод различий в формате `json`
 * Использование как CLI-утилиты
 * Использование как PHP-библиотеки
 
@@ -51,6 +52,8 @@ php bin/gendiff -f plain file1.json file2.json
 
 ```bash
 php bin/gendiff --format plain file1.json file2.json
+
+php bin/gendiff -f json file1.json file2.json
 ```
 
 ---
@@ -118,12 +121,131 @@ Property 'group2' was removed
 Property 'group3' was added with value: [complex value]
 ```
 ---
-
+## Пример вывода (stylish)
+```json
+[
+    {
+        "type": "nested",
+        "key": "common",
+        "children": [
+            {
+                "type": "added",
+                "key": "follow",
+                "value": false
+            },
+            {
+                "type": "unchanged",
+                "key": "setting1",
+                "value": "Value 1"
+            },
+            {
+                "type": "removed",
+                "key": "setting2",
+                "value": 200
+            },
+            {
+                "type": "changed",
+                "key": "setting3",
+                "oldValue": true,
+                "newValue": null
+            },
+            {
+                "type": "added",
+                "key": "setting4",
+                "value": "blah blah"
+            },
+            {
+                "type": "added",
+                "key": "setting5",
+                "value": {
+                    "key5": "value5"
+                }
+            },
+            {
+                "type": "nested",
+                "key": "setting6",
+                "children": [
+                    {
+                        "type": "nested",
+                        "key": "doge",
+                        "children": [
+                            {
+                                "type": "changed",
+                                "key": "wow",
+                                "oldValue": "",
+                                "newValue": "so much"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "unchanged",
+                        "key": "key",
+                        "value": "value"
+                    },
+                    {
+                        "type": "added",
+                        "key": "ops",
+                        "value": "vops"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "nested",
+        "key": "group1",
+        "children": [
+            {
+                "type": "changed",
+                "key": "baz",
+                "oldValue": "bas",
+                "newValue": "bars"
+            },
+            {
+                "type": "unchanged",
+                "key": "foo",
+                "value": "bar"
+            },
+            {
+                "type": "changed",
+                "key": "nest",
+                "oldValue": {
+                    "key": "value"
+                },
+                "newValue": "str"
+            }
+        ]
+    },
+    {
+        "type": "removed",
+        "key": "group2",
+        "value": {
+            "abc": 12345,
+            "deep": {
+                "id": 45
+            }
+        }
+    },
+    {
+        "type": "added",
+        "key": "group3",
+        "value": {
+            "deep": {
+                "id": {
+                    "number": 45
+                }
+            },
+            "fee": 100500
+        }
+    }
+]
+```
+---
 ## Demo
 
 Пример работы утилиты (CLI):
 
-https://asciinema.org/a/limHv3yV5I878pvAUhqpcudQh
+<https://asciinema.org/a/GMTbbVQnmc66zUClAB3ZYGMi7>
 
 ---
 
@@ -213,7 +335,8 @@ tests/fixtures
 ## Бейджи
 
 [![CI](https://github.com/creiddom/php-project-48/actions/workflows/ci.yml/badge.svg)](https://github.com/creiddom/php-project-48/actions/workflows/ci.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=creiddom_php-project-48\&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=creiddom_php-project-48)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=creiddom_php-project-48&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=creiddom_php-project-48)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=creiddom_php-project-48\&metric=coverage)](https://sonarcloud.io/summary/new_code?id=creiddom_php-project-48)
 
 ---
