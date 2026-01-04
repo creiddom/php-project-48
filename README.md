@@ -58,7 +58,7 @@ php bin/gendiff -f json file1.json file2.json
 
 ---
 
-## Пример вывода (stylish)
+## Пример вывода (json)
 
 ```text
 {
