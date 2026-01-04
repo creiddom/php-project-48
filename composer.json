@@ -1,31 +1,32 @@
 {
-	"name": "hexlet/code",
-	"type": "project",
-	"description": "Generate diff between two configuration files",
-  	"license": "proprietary",
-	"require": {
-		"php": ">=8.2",
-		"docopt/docopt": "^1.0",
-		"funct/funct": "^1.6",
-		"symfony/yaml": "^7.4"
-	},
-	"require-dev": {
-		"phpunit/phpunit": "^11.5",
-		"friendsofphp/php-cs-fixer": "*"
-	},
-	"autoload": {
-	"psr-4": {
-		"Differ\\": "src/"
-	},
-	"files": [
-		"src/Parsers.php",
-		"src/DiffTree.php",
-		"src/Formatters.php",
-		"src/Formatters/Stylish.php",
-		"src/Differ.php"
-	]
-	},
-	"bin": [
-		"bin/gendiff"
-	]
+  "name": "hexlet/code",
+  "type": "project",
+  "description": "Generate diff between two configuration files",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.2",
+    "docopt/docopt": "^1.0",
+    "funct/funct": "^1.6",
+    "symfony/yaml": "^7.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.5",
+    "friendsofphp/php-cs-fixer": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Differ\\": "src/"
+    },
+    "files": [
+      "src/Parsers.php",
+      "src/DiffTree.php",
+      "src/Formatters.php",
+      "src/Formatters/Stylish.php",
+      "src/Formatters/Plain.php",
+      "src/Differ.php"
+    ]
+  },
+  "bin": [
+    "bin/gendiff"
+  ]
 }
