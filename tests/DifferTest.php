@@ -21,8 +21,8 @@ class DifferTest extends TestCase
 
         $actual = genDiff($file1, $file2, $format);
 
-        $normalize = fn(string $s): string =>
-            rtrim(str_replace(["\r\n", "\r"], "\n", $s), "\n");
+        $normalize = fn(string $s): string
+            => rtrim(str_replace(["\r\n", "\r"], "\n", $s), "\n");
 
         $this->assertSame($normalize($expected), $normalize($actual));
     }
