@@ -9,6 +9,24 @@ use function Differ\Differ\genDiff;
 
 class DifferTest extends TestCase
 {
+    #[DataProvider('nestedFilesProvider')]
+    public function testGenDiffNestedFiles(
+        string $file1,
+        string $file2,
+        string $format,
+        string $expectedFile
+    ): void {
+        $expected = file_get_contents($expectedFile);
+        $this->assertNotFalse($expected);
+
+        $actual = genDiff($file1, $file2, $format);
+
+        $normalize = fn(string $s): string
+            => rtrim(str_replace(["\r\n", "\r"], "\n", $s), "\n");
+
+        $this->assertSame($normalize($expected), $normalize($actual));
+    }
+
     #[DataProvider('flatFilesProvider')]
     public function testGenDiffFlatFiles(
         string $file1,
@@ -27,7 +45,7 @@ class DifferTest extends TestCase
         $this->assertSame($normalize($expected), $normalize($actual));
     }
 
-    public static function flatFilesProvider(): array
+    public static function nestedFilesProvider(): array
     {
         $fixtureDir = __DIR__ . '/fixtures';
 
@@ -67,6 +85,26 @@ class DifferTest extends TestCase
                 $fixtureDir . '/file2.yml',
                 'json',
                 $fixtureDir . '/expected.json.txt',
+            ],
+        ];
+    }
+
+    public static function flatFilesProvider(): array
+    {
+        $fixtureDir = __DIR__ . '/fixtures';
+
+        return [
+            'flat_json_stylish' => [
+                $fixtureDir . '/file1.flat.json',
+                $fixtureDir . '/file2.flat.json',
+                'stylish',
+                $fixtureDir . '/expected.flat.txt',
+            ],
+            'flat_yaml_stylish' => [
+                $fixtureDir . '/file1.flat.yml',
+                $fixtureDir . '/file2.flat.yml',
+                'stylish',
+                $fixtureDir . '/expected.flat.txt',
             ],
         ];
     }

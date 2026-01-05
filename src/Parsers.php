@@ -17,24 +17,17 @@ function parseFile(string $path): array
     }
 
     $ext = strtolower(pathinfo($fullPath, PATHINFO_EXTENSION));
+    $parser = getParser($ext);
 
-    if ($ext === 'json') {
-        return parseJson($content);
-    }
-
-    if ($ext === 'yml' || $ext === 'yaml') {
-        return parseYaml($content);
-    }
-
-    throw new \RuntimeException("Unsupported file format: {$ext}");
+    return $parser($content);
 }
 
 function parseJson(string $content): array
 {
-    $data = json_decode($content, true);
-
-    if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
-        throw new \RuntimeException('Invalid JSON: ' . json_last_error_msg());
+    try {
+        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+    } catch (\JsonException $e) {
+        throw new \RuntimeException('Invalid JSON: ' . $e->getMessage(), 0, $e);
     }
 
     if (!is_array($data)) {
@@ -58,4 +51,13 @@ function parseYaml(string $content): array
     }
 
     return $data;
+}
+
+function getParser(string $ext): callable
+{
+    return match ($ext) {
+        'json' => fn(string $content): array => parseJson($content),
+        'yml', 'yaml' => fn(string $content): array => parseYaml($content),
+        default => throw new \RuntimeException("Unsupported file format: {$ext}"),
+    };
 }

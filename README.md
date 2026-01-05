@@ -243,9 +243,14 @@ Property 'group3' was added with value: [complex value]
 ---
 ## Demo
 
-Пример работы утилиты (CLI):
+Примеры работы утилиты (CLI):
 
-<https://asciinema.org/a/GMTbbVQnmc66zUClAB3ZYGMi7>
+[Плоские JSON-файлы](https://asciinema.org/a/rE5qamrr78eNZzRJKnL82Exz1)
+[Плоские YAML-файлы](https://asciinema.org/a/FkpkEU6emsZxKiKTCyorAcsJW)
+[Вложенные JSON-файлы](https://asciinema.org/a/rUPKTe32yjbW40xvbtf2xRyN9)
+[Вложенные YAML-файлы](https://asciinema.org/a/UNbVNtmMc0g0ycU6W6DJ7gs5R)
+[Plain-формат](https://asciinema.org/a/yB3mUbDUgkeTSS2C8vfkUuJK8)
+[Вывод в JSON](https://asciinema.org/a/EqWwAhvkGddp7NUVLU6MzTsil)
 
 ---
 

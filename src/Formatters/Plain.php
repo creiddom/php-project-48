@@ -41,6 +41,9 @@ function iter(array $nodes, string $path): array
             continue;
         }
 
+        if ($type === 'unchanged') {
+            continue;
+        }
     }
 
     return $result;

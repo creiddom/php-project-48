@@ -17,7 +17,6 @@ function getFormatter(string $formatName): callable
     return match ($formatName) {
         'stylish' => fn(array $tree): string => formatStylish($tree),
         'plain' => fn(array $tree): string => formatPlain($tree),
-        'default' => fn(array $tree): string => formatStylish($tree),
         'json' => fn(array $tree): string => formatJson($tree),
         default => throw new \RuntimeException("Unknown format: {$formatName}"),
     };
