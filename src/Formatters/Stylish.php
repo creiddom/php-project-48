@@ -11,7 +11,11 @@ function iter(array $nodes, int $depth): string
 {
     $lines = array_map(fn($node) => formatNode($node, $depth), $nodes);
 
-    return "{\n" . implode("\n", $lines) . "\n" . indent($depth - 1, 0) . "}";
+    $open = "{\n";
+    $body = implode("\n", $lines);
+    $close = "\n" . indent($depth - 1, 0) . "}";
+
+    return "{$open}{$body}{$close}";
 }
 
 function formatNode(array $node, int $depth): string
@@ -34,9 +38,8 @@ function formatNode(array $node, int $depth): string
 
 function line(int $depth, string $sign, string $key, string $value): string
 {
-    // Формула из подсказок: depth * 4 - 2 пробела до спецсимвола
-    $prefix = indent($depth, 2) . $sign . ' ';
-    return "{$prefix}{$key}: {$value}";
+    $prefix = indent($depth, 2);
+    return "{$prefix}{$sign} {$key}: {$value}";
 }
 
 function indent(int $depth, int $shiftLeft): string
@@ -59,21 +62,29 @@ function stringify(mixed $value, int $depth): string
         return $value ? 'true' : 'false';
     }
 
-    // пустая строка должна дать "key: " (пробел после двоеточия останется в line())
     return (string) $value;
 }
 
 function stringifyObject(array $value, int $depth): string
 {
-    // Вложенное значение-объект печатается без +/- и со стандартными отступами
-    $keys = array_keys($value);
-    sort($keys);
+    $keys = collect(array_keys($value))
+        ->sort()
+        ->values()
+        ->all();
 
-    $lines = [];
-    foreach ($keys as $k) {
-        $v = $value[$k];
-        $lines[] = indent($depth, 0) . "{$k}: " . stringify($v, $depth + 1);
-    }
+    $lines = array_map(
+        fn(string $k): string => sprintf(
+            '%s%s: %s',
+            indent($depth, 0),
+            $k,
+            stringify($value[$k], $depth + 1)
+        ),
+        $keys
+    );
 
-    return "{\n" . implode("\n", $lines) . "\n" . indent($depth - 1, 0) . "}";
+    $open = "{\n";
+    $body = implode("\n", $lines);
+    $close = "\n" . indent($depth - 1, 0) . "}";
+
+    return "{$open}{$body}{$close}";
 }

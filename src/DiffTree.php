@@ -2,53 +2,63 @@
 
 namespace Differ\DiffTree;
 
-function build(array $data1, array $data2): array
+function buildDiffTree(array $data1, array $data2): array
 {
-    $keys = array_values(array_unique(array_merge(array_keys($data1), array_keys($data2))));
-    sort($keys);
+    $keys = collect(array_merge(array_keys($data1), array_keys($data2)))
+        ->unique()
+        ->sort()
+        ->values()
+        ->all();
 
-    $result = [];
+    return array_map(fn(string $key): array => buildNode($key, $data1, $data2), $keys);
+}
 
-    foreach ($keys as $key) {
-        $has1 = array_key_exists($key, $data1);
-        $has2 = array_key_exists($key, $data2);
+function buildNode(string $key, array $data1, array $data2): array
+{
+    $has1 = array_key_exists($key, $data1);
+    $has2 = array_key_exists($key, $data2);
 
-        if (!$has1) {
-            $result[] = [
-                'type' => 'added',
-                'key' => $key,
-                'value' => $data2[$key],
-            ];
-            continue;
-        }
-
-        if (!$has2) {
-            $result[] = [
-                'type' => 'removed',
-                'key' => $key,
-                'value' => $data1[$key],
-            ];
-            continue;
-        }
-
-        $v1 = $data1[$key];
-        $v2 = $data2[$key];
-
-        if (isAssocArray($v1) && isAssocArray($v2)) {
-            $result[] = [
-                'type' => 'nested',
-                'key' => $key,
-                'children' => build($v1, $v2),
-            ];
-            continue;
-        }
-
-        $result[] = ($v1 === $v2)
-            ? ['type' => 'unchanged', 'key' => $key, 'value' => $v1]
-            : ['type' => 'changed', 'key' => $key, 'oldValue' => $v1, 'newValue' => $v2];
+    if (!$has1) {
+        return [
+            'type' => 'added',
+            'key' => $key,
+            'value' => $data2[$key],
+        ];
     }
 
-    return $result;
+    if (!$has2) {
+        return [
+            'type' => 'removed',
+            'key' => $key,
+            'value' => $data1[$key],
+        ];
+    }
+
+    $v1 = $data1[$key];
+    $v2 = $data2[$key];
+
+    if (isAssocArray($v1) && isAssocArray($v2)) {
+        return [
+            'type' => 'nested',
+            'key' => $key,
+            'children' => buildDiffTree($v1, $v2),
+        ];
+    }
+
+    if ($v1 === $v2) {
+        return [
+            'type' => 'unchanged',
+            'key' => $key,
+            'value' => $v1,
+        ];
+    }
+
+    return [
+        'type' => 'changed',
+        'key' => $key,
+        'oldValue' => $v1,
+        'newValue' => $v2,
+    ];
 }
 
 function isAssocArray(mixed $value): bool

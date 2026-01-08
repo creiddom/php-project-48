@@ -4,7 +4,7 @@ namespace Differ;
 
 use Symfony\Component\Yaml\Yaml;
 
-function parseFile(string $path): array
+function getFileData(string $path): array
 {
     $fullPath = realpath($path);
     if ($fullPath === false) {
@@ -17,18 +17,19 @@ function parseFile(string $path): array
     }
 
     $ext = strtolower(pathinfo($fullPath, PATHINFO_EXTENSION));
-    $parser = getParser($ext);
 
+    return [$content, $ext];
+}
+
+function parse(string $content, string $ext): array
+{
+    $parser = getParser($ext);
     return $parser($content);
 }
 
 function parseJson(string $content): array
 {
-    try {
-        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
-    } catch (\JsonException $e) {
-        throw new \RuntimeException('Invalid JSON: ' . $e->getMessage(), 0, $e);
-    }
+    $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
     if (!is_array($data)) {
         throw new \RuntimeException('Invalid JSON: expected an object with key-value pairs');
@@ -41,7 +42,6 @@ function parseYaml(string $content): array
 {
     $data = Yaml::parse($content);
 
-    // пустой файл YAML
     if ($data === null) {
         return [];
     }
