@@ -12,6 +12,14 @@ CLI-утилита и PHP-библиотека для вычисления ра�
 * CI и интеграцию с SonarCloud.
 
 ---
+## Бейджи
+
+[![CI](https://github.com/creiddom/php-project-48/actions/workflows/ci.yml/badge.svg)](https://github.com/creiddom/php-project-48/actions/workflows/ci.yml)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=creiddom_php-project-48&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=creiddom_php-project-48)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=creiddom_php-project-48\&metric=coverage)](https://sonarcloud.io/summary/new_code?id=creiddom_php-project-48)
+
+---
 
 ## Возможности
 
@@ -245,12 +253,12 @@ Property 'group3' was added with value: [complex value]
 
 Примеры работы утилиты (CLI):
 
-[Плоские JSON-файлы](https://asciinema.org/a/rE5qamrr78eNZzRJKnL82Exz1)
-[Плоские YAML-файлы](https://asciinema.org/a/FkpkEU6emsZxKiKTCyorAcsJW)
-[Вложенные JSON-файлы](https://asciinema.org/a/rUPKTe32yjbW40xvbtf2xRyN9)
-[Вложенные YAML-файлы](https://asciinema.org/a/UNbVNtmMc0g0ycU6W6DJ7gs5R)
-[Plain-формат](https://asciinema.org/a/yB3mUbDUgkeTSS2C8vfkUuJK8)
-[Вывод в JSON](https://asciinema.org/a/EqWwAhvkGddp7NUVLU6MzTsil)
+[Плоские JSON-файлы](https://asciinema.org/a/rE5qamrr78eNZzRJKnL82Exz1) <br>
+[Плоские YAML-файлы](https://asciinema.org/a/FkpkEU6emsZxKiKTCyorAcsJW) <br>
+[Вложенные JSON-файлы](https://asciinema.org/a/rUPKTe32yjbW40xvbtf2xRyN9) <br>
+[Вложенные YAML-файлы](https://asciinema.org/a/UNbVNtmMc0g0ycU6W6DJ7gs5R) <br>
+[Plain-формат](https://asciinema.org/a/yB3mUbDUgkeTSS2C8vfkUuJK8) <br>
+[Вывод в JSON](https://asciinema.org/a/EqWwAhvkGddp7NUVLU6MzTsil) <br>
 
 ---
 
@@ -334,15 +342,6 @@ tests/fixtures
 * отправки отчёта покрытия в SonarCloud.
 
 Анализ качества кода и покрытия выполняется через **SonarCloud**.
-
----
-
-## Бейджи
-
-[![CI](https://github.com/creiddom/php-project-48/actions/workflows/ci.yml/badge.svg)](https://github.com/creiddom/php-project-48/actions/workflows/ci.yml)
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=creiddom_php-project-48&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=creiddom_php-project-48)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=creiddom_php-project-48\&metric=coverage)](https://sonarcloud.io/summary/new_code?id=creiddom_php-project-48)
 
 ---
 
