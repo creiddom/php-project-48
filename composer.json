@@ -25,8 +25,7 @@
       "src/Formatters/Stylish.php",
       "src/Formatters/Plain.php",
 			"src/Formatters/Json.php",
-      "src/Differ.php",
-      "src/Cli.php"
+      "src/Differ.php"
     ]
   },
   "bin": [

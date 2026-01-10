@@ -1,7 +1,8 @@
 #!/usr/bin/env php
 <?php
 
-use function Differ\Cli\run;
+use Docopt\Handler;
+use function Differ\Differ\genDiff;
 
 $autoloaders = [
     __DIR__ . '/../vendor/autoload.php',
@@ -15,4 +16,25 @@ foreach ($autoloaders as $file) {
     }
 }
 
-run();
+$doc = <<<DOC
+Generate diff
+
+Usage:
+  gendiff (-h|--help)
+  gendiff (-v|--version)
+  gendiff [--format <fmt>] <firstFile> <secondFile>
+
+Options:
+  -h --help                     Show this screen
+  -v --version                  Show version
+  --format <fmt>                Report format [default: stylish]
+DOC;
+
+$handler = new Handler();
+$args = $handler->handle($doc);
+
+echo genDiff(
+    $args['<firstFile>'],
+    $args['<secondFile>'],
+    $args['--format']
+);

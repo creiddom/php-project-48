@@ -17,5 +17,5 @@ function genDiff(string $path1, string $path2, string $format = 'stylish'): stri
 
     $diffTree = buildDiffTree($data1, $data2);
 
-    return formatDiff($diffTree, $format) . PHP_EOL;
+    return formatDiff($diffTree, $format);
 }

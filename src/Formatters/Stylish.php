@@ -11,11 +11,11 @@ function iter(array $nodes, int $depth): string
 {
     $lines = array_map(fn($node) => formatNode($node, $depth), $nodes);
 
-    $open = "{\n";
-    $body = implode("\n", $lines);
-    $close = "\n" . indent($depth - 1, 0) . "}";
-
-    return "{$open}{$body}{$close}";
+    return sprintf(
+        "{\n%s\n%s}",
+        implode("\n", $lines),
+        indent($depth - 1, 0)
+    );
 }
 
 function formatNode(array $node, int $depth): string
@@ -32,14 +32,21 @@ function formatNode(array $node, int $depth): string
             line($depth, '+', $key, stringify($node['newValue'], $depth + 1)),
         ]),
         'nested' => line($depth, ' ', $key, iter($node['children'], $depth + 1)),
-        default => throw new \RuntimeException("Unknown node type: {$type}"),
+        default => throw new \RuntimeException(
+            sprintf('Unknown node type: %s', $type)
+        ),
     };
 }
 
 function line(int $depth, string $sign, string $key, string $value): string
 {
-    $prefix = indent($depth, 2);
-    return "{$prefix}{$sign} {$key}: {$value}";
+    return sprintf(
+        '%s%s %s: %s',
+        indent($depth, 2),
+        $sign,
+        $key,
+        $value
+    );
 }
 
 function indent(int $depth, int $shiftLeft): string
@@ -82,9 +89,9 @@ function stringifyObject(array $value, int $depth): string
         $keys
     );
 
-    $open = "{\n";
-    $body = implode("\n", $lines);
-    $close = "\n" . indent($depth - 1, 0) . "}";
-
-    return "{$open}{$body}{$close}";
+    return sprintf(
+        "{\n%s\n%s}",
+        implode("\n", $lines),
+        indent($depth - 1, 0)
+    );
 }

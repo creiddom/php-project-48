@@ -21,10 +21,10 @@ class DifferTest extends TestCase
 
         $actual = genDiff($file1, $file2, $format);
 
-        $normalize = fn(string $s): string
-            => rtrim(str_replace(["\r\n", "\r"], "\n", $s), "\n");
-
-        $this->assertSame($normalize($expected), $normalize($actual));
+        $this->assertSame(
+            $this->normalize($expected),
+            $this->normalize($actual)
+        );
     }
 
     #[DataProvider('flatFilesProvider')]
@@ -39,10 +39,18 @@ class DifferTest extends TestCase
 
         $actual = genDiff($file1, $file2, $format);
 
-        $normalize = fn(string $s): string
-            => rtrim(str_replace(["\r\n", "\r"], "\n", $s), "\n");
+        $this->assertSame(
+            $this->normalize($expected),
+            $this->normalize($actual)
+        );
+    }
 
-        $this->assertSame($normalize($expected), $normalize($actual));
+    private function normalize(string $value): string
+    {
+        return rtrim(
+            str_replace(["\r\n", "\r"], "\n", $value),
+            "\n"
+        );
     }
 
     public static function nestedFilesProvider(): array

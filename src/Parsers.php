@@ -23,8 +23,11 @@ function getFileData(string $path): array
 
 function parse(string $content, string $ext): array
 {
-    $parser = getParser($ext);
-    return $parser($content);
+    return match ($ext) {
+        'json' => parseJson($content),
+        'yml', 'yaml' => parseYaml($content),
+        default => throw new \RuntimeException("Unsupported file format: {$ext}"),
+    };
 }
 
 function parseJson(string $content): array
@@ -51,13 +54,4 @@ function parseYaml(string $content): array
     }
 
     return $data;
-}
-
-function getParser(string $ext): callable
-{
-    return match ($ext) {
-        'json' => fn(string $content): array => parseJson($content),
-        'yml', 'yaml' => fn(string $content): array => parseYaml($content),
-        default => throw new \RuntimeException("Unsupported file format: {$ext}"),
-    };
 }
